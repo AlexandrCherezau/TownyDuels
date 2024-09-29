@@ -1,2 +1,2 @@
-public class фыв {
+public class фыв implements Tab{
 }
