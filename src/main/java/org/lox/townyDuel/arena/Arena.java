@@ -18,6 +18,7 @@ public class Arena {
     public String getName() {
         return name;
     }
+    //asd
 
     public Location getPos1() {
         return pos1;
