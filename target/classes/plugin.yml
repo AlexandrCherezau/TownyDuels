@@ -1,0 +1,10 @@
+name: TownyDuel
+version: '1.0-SNAPSHOT'
+main: org.lox.townyDuel.TownyDuel
+api-version: '1.20'
+commands:
+  createkit:
+    usage: /<1>
+  queue:
+    usage: /<1>
+  arenacreate:
