@@ -1,0 +1,10 @@
+org\lox\townyDuel\arena\ArenaCreateCommand.class
+org\lox\townyDuel\arena\ArenaCreateTabCompleter.class
+org\lox\townyDuel\command\QueueCommand.class
+org\lox\townyDuel\arena\ArenaManager.class
+org\lox\townyDuel\command\CreateKitTabCompleter.class
+org\lox\townyDuel\arena\Arena.class
+org\lox\townyDuel\managers\KitManager.class
+org\lox\townyDuel\command\CreateKitCommand.class
+org\lox\townyDuel\TownyDuel.class
+org\lox\townyDuel\command\QueueTabCompleter.class
