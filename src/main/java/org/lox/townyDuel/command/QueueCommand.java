@@ -43,7 +43,6 @@ public class QueueCommand implements CommandExecutor, TabCompleter {
             player.sendMessage("Кит с названием '" + kitName + "' не найден.");
             return true;
         }
-
         addToQueue(player, kitName);
 
         return true;
