@@ -1,10 +1,8 @@
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\arena\Arena.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\arena\ArenaCreateCommand.java
-C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\arena\ArenaCreateTabCompleter.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\arena\ArenaManager.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\command\CreateKitCommand.java
-C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\command\CreateKitTabCompleter.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\command\QueueCommand.java
-C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\command\QueueTabCompleter.java
+C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\managers\Kit.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\managers\KitManager.java
 C:\Users\admin\IdeaProjects\TownyDuel\src\main\java\org\lox\townyDuel\TownyDuel.java
