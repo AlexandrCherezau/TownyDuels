@@ -6,8 +6,6 @@ public class Arena {
     private String name;
     private Location pos1;
     private Location pos2;
-    private Location playerSpawn1;
-    private Location playerSpawn2;
 
     public Arena(String name, Location pos1, Location pos2) {
         this.name = name;
@@ -27,23 +25,15 @@ public class Arena {
         return pos2;
     }
 
-    public Location getPlayerSpawn1() {
-        return playerSpawn1;
+    public void setPos1(Location pos1) {
+        this.pos1 = pos1;
     }
 
-    public void setPlayerSpawn1(Location playerSpawn1) {
-        this.playerSpawn1 = playerSpawn1;
-    }
-
-    public Location getPlayerSpawn2() {
-        return playerSpawn2;
-    }
-
-    public void setPlayerSpawn2(Location playerSpawn2) {
-        this.playerSpawn2 = playerSpawn2;
+    public void setPos2(Location pos2) {
+        this.pos2 = pos2;
     }
 
     public boolean hasSpawns() {
-        return playerSpawn1 != null && playerSpawn2 != null;
+        return pos1 != null && pos2 != null;
     }
 }

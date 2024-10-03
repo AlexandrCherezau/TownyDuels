@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArenaCreateCommand implements CommandExecutor, TabCompleter {
-    private ArenaManager arenaManager;
+    private final ArenaManager arenaManager;
 
     public ArenaCreateCommand(ArenaManager arenaManager) {
         this.arenaManager = arenaManager;
@@ -22,114 +22,36 @@ public class ArenaCreateCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Только игроки могут использовать эту команду.");
+            sender.sendMessage("Эта команда может быть выполнена только игроком.");
             return true;
         }
+
         Player player = (Player) sender;
 
-        if (args.length < 1) {
-            player.sendMessage("Недостаточно аргументов.");
-            return false;
-        }
+        if (args.length == 7 && args[0].equalsIgnoreCase("create")) {
+            String arenaName = args[6];
+            try {
+                double x1 = Double.parseDouble(args[1]);
+                double y1 = Double.parseDouble(args[2]);
+                double z1 = Double.parseDouble(args[3]);
+                double x2 = Double.parseDouble(args[4]);
+                double y2 = Double.parseDouble(args[5]);
+                double z2 = Double.parseDouble(args[6]);
 
-        String subcommand = args[0];
+                Location pos1 = new Location(player.getWorld(), x1, y1, z1);
+                Location pos2 = new Location(player.getWorld(), x2, y2, z2);
 
-        switch (subcommand) {
-            case "create":
-                return handleCreate(player, args);
-            case "start":
-                return handleStart(player, args);
-            case "pos1":
-                return handlePos1(player, args);
-            case "pos2":
-                return handlePos2(player, args);
-            case "remove":
-                return handleRemove(player, args);
-            default:
-                player.sendMessage("Неизвестная команда.");
-                return false;
-        }
-    }
-
-    private boolean handleCreate(Player player, String[] args) {
-        if (args.length != 8) {
-            player.sendMessage("Использование: /arenacreate create {x y z x2 y2 z2} {название арены}");
-            return false;
-        }
-
-        try {
-            Location pos1 = new Location(player.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3]));
-            Location pos2 = new Location(player.getWorld(), Double.parseDouble(args[4]), Double.parseDouble(args[5]), Double.parseDouble(args[6]));
-            String arenaName = args[7];
-
-            arenaManager.createArena(arenaName, pos1, pos2);
-            player.sendMessage("Арена " + arenaName + " успешно создана.");
-        } catch (NumberFormatException e) {
-            player.sendMessage("Неверные координаты.");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean handleStart(Player player, String[] args) {
-        if (args.length != 2) {
-            player.sendMessage("Использование: /arenacreate start {название арены}");
-            return false;
-        }
-
-        String arenaName = args[1];
-        Arena arena = arenaManager.getArena(arenaName);
-
-        if (arena == null) {
-            player.sendMessage("Арена с таким названием не найдена.");
-            return false;
-        }
-
-        arenaManager.startEditing(arenaName);
-        player.sendMessage("Режим редактирования для арены " + arenaName + " активирован.");
-        return true;
-    }
-
-    private boolean handlePos1(Player player, String[] args) {
-        if (!arenaManager.isEditing()) {
-            player.sendMessage("Вы не в режиме редактирования арены.");
-            return false;
-        }
-
-        Location location = player.getLocation();
-        Arena arena = arenaManager.getEditingArena();
-        arena.setPlayerSpawn1(location);
-        player.sendMessage("Точка спавна 1 установлена на координатах: " + location.toString());
-        return true;
-    }
-
-    private boolean handlePos2(Player player, String[] args) {
-        if (!arenaManager.isEditing()) {
-            player.sendMessage("Вы не в режиме редактирования арены.");
-            return false;
-        }
-
-        Location location = player.getLocation();
-        Arena arena = arenaManager.getEditingArena();
-        arena.setPlayerSpawn2(location);
-        player.sendMessage("Точка спавна 2 установлена на координатах: " + location.toString());
-        return true;
-    }
-
-    private boolean handleRemove(Player player, String[] args) {
-        if (args.length != 2) {
-            player.sendMessage("Использование: /arenacreate remove {название арены}");
-            return false;
-        }
-
-        String arenaName = args[1];
-        if (arenaManager.removeArena(arenaName)) {
-            player.sendMessage("Арена " + arenaName + " успешно удалена.");
+                arenaManager.createArena(arenaName, pos1, pos2);
+                player.sendMessage("Арена '" + arenaName + "' создана.");
+            } catch (NumberFormatException e) {
+                player.sendMessage("Неверные координаты.");
+            }
         } else {
-            player.sendMessage("Арена с таким названием не найдена.");
+            player.sendMessage("Использование: /arenacreate create {x y z x2 y2 z2} {название арены}");
         }
         return true;
     }
+
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
