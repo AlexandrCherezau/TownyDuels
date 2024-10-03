@@ -36,6 +36,10 @@ public class KitManager {
     }
 
     public void saveKit(String name, ItemStack[] items) {
+        // Проверяем, что items не null и не пустой
+        if (items == null || items.length == 0) {
+            throw new IllegalArgumentException("Невозможно сохранить пустой кит");
+        }
         Kit kit = new Kit(name, List.of(items));
         kits.put(name, kit);
         saveKitToFile(kit);

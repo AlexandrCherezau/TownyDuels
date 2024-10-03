@@ -39,8 +39,12 @@ public class CreateKitCommand implements CommandExecutor, TabCompleter {
 
         switch (action.toLowerCase()) {
             case "save":
-                kitManager.saveKit(kitName, player.getInventory().getContents());
-                player.sendMessage("Кит '" + kitName + "' сохранён.");
+                if (player.getInventory().getContents() == null || player.getInventory().isEmpty()) {
+                    player.sendMessage("Ваш инвентарь пуст. Невозможно сохранить пустой кит.");
+                } else {
+                    kitManager.saveKit(kitName, player.getInventory().getContents());
+                    player.sendMessage("Кит '" + kitName + "' сохранён.");
+                }
                 break;
             case "remove":
                 kitManager.removeKit(kitName);
