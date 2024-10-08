@@ -16,7 +16,7 @@ public final class TownyDuel extends JavaPlugin {
         kitManager = new KitManager(this);
         arenaManager = new ArenaManager();
 
-        getCommand("queue").setExecutor(new QueueCommand(arenaManager, kitManager));
+        getCommand("queuea").setExecutor(new QueueCommand(arenaManager, kitManager));
 
         getCommand("createkit").setExecutor(new CreateKitCommand(kitManager));
 
