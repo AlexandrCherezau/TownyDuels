@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 public class ArenaCreateCommand implements CommandExecutor, TabCompleter {
     private final ArenaManager arenaManager;
+    private String editingArena = null;  // Для отслеживания арены в режиме редактирования
 
     public ArenaCreateCommand(ArenaManager arenaManager) {
         this.arenaManager = arenaManager;
@@ -28,8 +29,8 @@ public class ArenaCreateCommand implements CommandExecutor, TabCompleter {
 
         Player player = (Player) sender;
 
-        if (args.length == 7 && args[0].equalsIgnoreCase("create")) {
-            String arenaName = args[6];
+        if (args.length == 8 && args[0].equalsIgnoreCase("create")) {
+            String arenaName = args[7];
             try {
                 double x1 = Double.parseDouble(args[1]);
                 double y1 = Double.parseDouble(args[2]);
@@ -45,6 +46,38 @@ public class ArenaCreateCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage("Арена '" + arenaName + "' создана.");
             } catch (NumberFormatException e) {
                 player.sendMessage("Неверные координаты.");
+            }
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("start")) {
+            String arenaName = args[1];
+            if (arenaManager.getArena(arenaName) != null) {
+                editingArena = arenaName;
+                player.sendMessage("Режим редактирования арены '" + arenaName + "' активирован.");
+            } else {
+                player.sendMessage("Арена с именем '" + arenaName + "' не найдена.");
+            }
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("pos1")) {
+            if (editingArena != null) {
+                Location playerLocation = player.getLocation();
+                arenaManager.setSpawnPoint1(editingArena, playerLocation);
+                player.sendMessage("Точка спавна 1 установлена для арены '" + editingArena + "'.");
+            } else {
+                player.sendMessage("Сначала выберите арену с помощью '/arenacreate start {название арены}'.");
+            }
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("pos2")) {
+            if (editingArena != null) {
+                Location playerLocation = player.getLocation();
+                arenaManager.setSpawnPoint2(editingArena, playerLocation);
+                player.sendMessage("Точка спавна 2 установлена для арены '" + editingArena + "'.");
+            } else {
+                player.sendMessage("Сначала выберите арену с помощью '/arenacreate start {название арены}'.");
+            }
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("remove")) {
+            String arenaName = args[1];
+            if (arenaManager.getArena(arenaName) != null) {
+                arenaManager.removeArena(arenaName);
+                player.sendMessage("Арена '" + arenaName + "' удалена.");
+            } else {
+                player.sendMessage("Арена с именем '" + arenaName + "' не найдена.");
             }
         } else {
             player.sendMessage("Использование: /arenacreate create {x y z x2 y2 z2} {название арены}");

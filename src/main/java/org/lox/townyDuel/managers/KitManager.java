@@ -8,10 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class KitManager {
     private Map<String, Kit> kits = new HashMap<>();
@@ -36,11 +33,22 @@ public class KitManager {
     }
 
     public void saveKit(String name, ItemStack[] items) {
-        // Проверяем, что items не null и не пустой
         if (items == null || items.length == 0) {
             throw new IllegalArgumentException("Невозможно сохранить пустой кит");
         }
-        Kit kit = new Kit(name, List.of(items));
+
+        List<ItemStack> validItems = new ArrayList<>();
+        for (ItemStack item : items) {
+            if (item != null) {
+                validItems.add(item); // Добавляем только непустые предметы
+            }
+        }
+
+        if (validItems.isEmpty()) {
+            throw new IllegalArgumentException("Невозможно сохранить кит с пустым инвентарём");
+        }
+
+        Kit kit = new Kit(name, validItems);
         kits.put(name, kit);
         saveKitToFile(kit);
     }

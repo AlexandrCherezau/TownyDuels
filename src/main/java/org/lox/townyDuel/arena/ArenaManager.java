@@ -15,6 +15,9 @@ public class ArenaManager {
     private final File arenasFile;
     private FileConfiguration arenasConfig;
     private final Map<String, Arena> arenas = new HashMap<>();
+    private Arena editingArena = null;
+    private final Map<String, Location> spawnPoint1 = new HashMap<>();
+    private final Map<String, Location> spawnPoint2 = new HashMap<>();
 
     public ArenaManager() {
         File directory = new File("plugins/TownyDuel/arenas");
@@ -51,6 +54,8 @@ public class ArenaManager {
 
     public void removeArena(String name) {
         arenas.remove(name);
+        spawnPoint1.remove(name);
+        spawnPoint2.remove(name);
         arenasConfig.set("arenas." + name, null);
         saveConfig();
     }
@@ -77,8 +82,17 @@ public class ArenaManager {
             }
         }
     }
-
     public Map<String, Arena> getArenas() {
         return arenas;
+    }
+    public void setSpawnPoint1(String arenaName, Location location) {
+        spawnPoint1.put(arenaName, location);
+        arenasConfig.set("arenas." + arenaName + ".spawnPoint1", location);
+        saveConfig();
+    }
+    public void setSpawnPoint2(String arenaName, Location location) {
+        spawnPoint2.put(arenaName, location);
+        arenasConfig.set("arenas." + arenaName + ".spawnPoint2", location);
+        saveConfig();
     }
 }
