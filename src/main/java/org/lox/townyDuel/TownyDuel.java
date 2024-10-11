@@ -13,10 +13,10 @@ public final class TownyDuel extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        kitManager = new KitManager();
+        kitManager = new KitManager(this);
         arenaManager = new ArenaManager();
 
-        getCommand("queue").setExecutor(new QueueCommand(arenaManager, kitManager));
+        getCommand("queuea").setExecutor(new QueueCommand(arenaManager, kitManager));
 
         getCommand("createkit").setExecutor(new CreateKitCommand(kitManager));
 
@@ -25,5 +25,8 @@ public final class TownyDuel extends JavaPlugin {
 
     public KitManager getKitManager() {
         return kitManager;
+    }
+    @Override
+    public void onDisable(){
     }
 }
