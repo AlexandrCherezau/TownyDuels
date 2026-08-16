@@ -37,5 +37,4 @@ public class ArenaManager {
         return editingArena != null;
     }
 
-
 }
